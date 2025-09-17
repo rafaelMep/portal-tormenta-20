@@ -35,15 +35,30 @@ export default function RegisterForm() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                     <InputLabel htmlFor="password" value="Senha" className="text-white" />
-                    <TextInput id="password" type="password" value={data.password} className="mt-1 block w-full"
-                        autoComplete="new-password" onChange={(e) => setData('password', e.target.value)} required />
-                    <InputError message={errors.password} className="mt-2" />
+                    <TextInput
+                        id="password"
+                        type="password"
+                        value={data.password}
+                        className="mt-1 block w-full"
+                        autoComplete="new-password"
+                        onChange={(e) => setData('password', e.target.value)}
+                        required
+                    />
                 </div>
                 <div>
                     <InputLabel htmlFor="password_confirmation" value="Confirmar senha" className="text-white" />
-                    <TextInput id="password_confirmation" type="password" value={data.password_confirmation}
-                        className="mt-1 block w-full" autoComplete="new-password"
-                        onChange={(e) => setData('password_confirmation', e.target.value)} required />
+                    <TextInput
+                        id="password_confirmation"
+                        type="password"
+                        value={data.password_confirmation}
+                        className="mt-1 block w-full"
+                        autoComplete="new-password"
+                        onChange={(e) => setData('password_confirmation', e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="sm:col-span-2">
+                    <InputError message={errors.password} className="mt-2" />
                 </div>
             </div>
             <PrimaryButton className="w-full justify-center bg-rose-600 hover:bg-rose-500 focus:ring-rose-400" disabled={processing}>
