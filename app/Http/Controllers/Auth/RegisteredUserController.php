@@ -36,7 +36,7 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => [
                 'required',
-                'confirmed', // precisa de password_confirmation
+                'confirmed',
                 Password::min(8)->letters()->mixedCase()->numbers()->symbols()->uncompromised(),
             ],
         ]);

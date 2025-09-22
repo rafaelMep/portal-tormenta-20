@@ -1,43 +1,33 @@
 import { FormEventHandler } from 'react';
-import { Link, useForm } from '@inertiajs/react';
+import { useForm } from '@inertiajs/react';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
 
 type Props = {
-    onSwitchToLogin?: () => void;
+    token: string;
+    email?: string | null;
+    onBackToLogin?: () => void;
 };
 
-export default function RegisterForm({ onSwitchToLogin }: Props) {
+export default function ResetPasswordForm({ token, email, onBackToLogin }: Props) {
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
-        email: '',
+        token,
+        email: email ?? '',
         password: '',
         password_confirmation: '',
     });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('register'), { onFinish: () => reset('password', 'password_confirmation') });
+        post(route('password.store'), {
+            onSuccess: () => reset('password', 'password_confirmation'),
+        });
     };
 
     return (
         <form onSubmit={submit} className="space-y-4">
-            <div>
-                <InputLabel htmlFor="name" value="Nome" className="text-white" />
-                <TextInput
-                    id="name"
-                    type="text"
-                    value={data.name}
-                    className="mt-1 block w-full"
-                    autoComplete="name"
-                    onChange={(e) => setData('name', e.target.value)}
-                    required
-                />
-                <InputError message={errors.name} className="mt-2" />
-            </div>
-
             <div>
                 <InputLabel htmlFor="email" value="E-mail" className="text-white" />
                 <TextInput
@@ -54,7 +44,7 @@ export default function RegisterForm({ onSwitchToLogin }: Props) {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                    <InputLabel htmlFor="password" value="Senha" className="text-white" />
+                    <InputLabel htmlFor="password" value="Nova senha" className="text-white" />
                     <TextInput
                         id="password"
                         type="password"
@@ -66,7 +56,7 @@ export default function RegisterForm({ onSwitchToLogin }: Props) {
                     />
                 </div>
                 <div>
-                    <InputLabel htmlFor="password_confirmation" value="Confirmar senha" className="text-white" />
+                    <InputLabel htmlFor="password_confirmation" value="Confirmar nova senha" className="text-white" />
                     <TextInput
                         id="password_confirmation"
                         type="password"
@@ -82,27 +72,25 @@ export default function RegisterForm({ onSwitchToLogin }: Props) {
                 </div>
             </div>
 
-            <PrimaryButton className="w-full justify-center bg-rose-600 hover:bg-rose-500 focus:ring-rose-400" disabled={processing}>
-                Criar conta
+            <PrimaryButton
+                className="w-full justify-center bg-rose-600 hover:bg-rose-500 focus:ring-rose-400"
+                disabled={processing}
+            >
+                Redefinir senha
             </PrimaryButton>
 
-            <p className="text-center text-sm text-white/80">
-                Já tem conta?{' '}
-                {onSwitchToLogin ? (
+            {onBackToLogin && (
+                <p className="text-center text-sm text-white/80 mt-1">
+                    Lembrou a senha?{' '}
                     <button
                         type="button"
-                        onClick={onSwitchToLogin}
+                        onClick={onBackToLogin}
                         className="font-semibold text-rose-300 hover:text-rose-200 underline underline-offset-2"
                     >
-                        Entrar
+                        Voltar ao login
                     </button>
-                ) : (
-                    // fallback
-                    <Link href={route('login')} className="font-semibold text-rose-300 hover:text-rose-200">
-                        Entrar
-                    </Link>
-                )}
-            </p>
+                </p>
+            )}
         </form>
     );
 }
