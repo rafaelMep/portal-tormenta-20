@@ -1,0 +1,44 @@
+/* Botão primário na cor do seu brand */
+.button-primary {
+    background-color: #e11d48 !important;
+    /* rose-600 */
+    border-top: 10px solid #e11d48 !important;
+    border-right: 18px solid #e11d48 !important;
+    border-bottom: 10px solid #e11d48 !important;
+    border-left: 18px solid #e11d48 !important;
+    color: #fff !important;
+}
+
+/* Cabeçalho escuro */
+.header {
+    background: #0f172a;
+    /* slate-900 */
+    color: #fff !important;
+}
+
+/* Título no header */
+.header a {
+    color: #fff !important;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+/* Corpo levemente escuro */
+.body {
+    background-color: #0b1020;
+    /* tom temático */
+}
+
+/* Cartão */
+.inner-body {
+    background-color: #111827;
+    /* cinza-900 */
+    color: #e5e7eb;
+    /* cinza-200 */
+}
+
+/* Rodapé */
+.footer {
+    background: #0b1020;
+    color: #9ca3af !important;
+}
