@@ -1,4 +1,3 @@
-// resources/js/Pages/Landing.tsx
 import { useState, useEffect } from 'react';
 import { Head, Link, usePage } from '@inertiajs/react';
 import Modal from '@/Components/Modal';

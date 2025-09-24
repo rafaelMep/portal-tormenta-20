@@ -4,7 +4,6 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Mail;
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -14,7 +13,8 @@ Route::get('/', function () {
 })->name('landing');
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    // return redirect()->route('dashboard.player.characters.index');
+    return redirect()->route('dashboard.player.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -23,21 +23,23 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/mail-test', function () {
-    Mail::raw('Teste SMTP OK', function ($m) {
-        $m->to('seu-email@gmail.com')->subject('Portal T20 - Teste SMTP');
-    });
-    return 'Enviado.';
-});
+Route::middleware(['auth', 'verified'])
+    ->prefix('dashboard')->name('dashboard.')
+    ->group(function () {
+        Route::prefix('player')->name('player.')->group(function () {
+            Route::get('/', fn() => Inertia::render('Player/Index'))->name('index');
 
-Route::get('/mail-debug', function () {
-    return [
-        'scheme' => config('mail.mailers.smtp.scheme'),
-        'host'   => config('mail.mailers.smtp.host'),
-        'port'   => config('mail.mailers.smtp.port'),
-        'username' => config('mail.mailers.smtp.username'),
-        'from'   => config('mail.from'),
-    ];
-});
+            Route::get('/characters', fn() => Inertia::render('Player/Characters/Index'))
+                ->name('characters.index');
+            Route::get('/characters/create', fn() => Inertia::render('Player/Characters/Create'))
+                ->name('characters.create');
+            Route::get('/campaign', fn() => Inertia::render('Player/Campaign/Index'))
+                ->name('campaign.index');
+        });
+
+        Route::prefix('master')->name('master.')->group(function () {
+            Route::get('/', fn() => Inertia::render('Master/Index'))->name('index');
+        });
+    });
 
 require __DIR__ . '/auth.php';
