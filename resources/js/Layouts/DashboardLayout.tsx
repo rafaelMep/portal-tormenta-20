@@ -135,7 +135,7 @@ export default function DashboardLayout({ children }: PropsWithChildren) {
                 {/* Sidebar */}
                 <aside
                     id="sidebar"
-                    className={`group relative z-40 md:z-auto md:sticky md:top-[72px] md:h-[calc(100vh-50%)] md:overflow-y-auto
+                    className={`group relative z-40 md:z-auto md:sticky md:top-[72px] md:h-[calc(100vh-120px)] md:overflow-y-auto
                                 rounded-2xl border border-white/10 bg-white/[0.045] backdrop-blur-sm p-3 transition ${openMobile ? '' : 'hidden md:block'}`}>
                     {/* glow sutil nas bordas */}
                     <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-white/5" />

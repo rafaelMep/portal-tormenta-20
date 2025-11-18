@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Player\CharacterController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +32,9 @@ Route::middleware(['auth', 'verified'])
 
             Route::get('/characters', fn() => Inertia::render('Player/Characters/Index'))
                 ->name('characters.index');
-            Route::get('/characters/create', fn() => Inertia::render('Player/Characters/Create'))
+            // Route::get('/characters/create', fn() => Inertia::render('Player/Characters/Create'))
+            // ->name('characters.create');
+            Route::get('/characters/create', [CharacterController::class, 'create'])
                 ->name('characters.create');
             Route::get('/campaign', fn() => Inertia::render('Player/Campaign/Index'))
                 ->name('campaign.index');
