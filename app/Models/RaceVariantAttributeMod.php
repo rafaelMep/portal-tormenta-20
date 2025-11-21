@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class RaceAttributeMod extends Model
+class RaceVariantAttributeMod extends Model
 {
-    protected $table = 'race_attribute_mods';
+    protected $table = 'race_variant_attribute_mods';
 
     protected $fillable = [
-        'race_id',
+        'race_variant_id',
         'choice_option_id',
         'mode',
         'attribute',
@@ -24,9 +24,9 @@ class RaceAttributeMod extends Model
         'exclusions' => 'array',
     ];
 
-    public function race(): BelongsTo
+    public function variant(): BelongsTo
     {
-        return $this->belongsTo(Race::class);
+        return $this->belongsTo(RaceVariant::class, 'race_variant_id');
     }
 
     public function choiceOption(): BelongsTo

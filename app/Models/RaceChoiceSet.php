@@ -3,19 +3,35 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class RaceChoiceSet extends Model
 {
-    protected $fillable = ['race_id', 'key', 'label', 'min_picks', 'max_picks', 'constraints'];
-    protected $casts = ['constraints' => 'array'];
+    protected $table = 'race_choice_sets';
 
-    public function race()
+    protected $fillable = [
+        'race_id',
+        'key',
+        'label',
+        'min_picks',
+        'max_picks',
+        'constraints',
+        'meta',
+    ];
+
+    protected $casts = [
+        'constraints' => 'array',
+        'meta' => 'array',
+    ];
+
+    public function race(): BelongsTo
     {
         return $this->belongsTo(Race::class);
     }
 
-    public function options()
+    public function options(): HasMany
     {
-        return $this->hasMany(RaceChoiceOption::class, 'set_id')->orderBy('value');
+        return $this->hasMany(RaceChoiceSetOption::class, 'set_id');
     }
 }

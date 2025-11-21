@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Race extends Model
 {
@@ -12,34 +13,30 @@ class Race extends Model
         'size',
         'speed',
         'creature_type',
-        'source',
         'summary',
         'meta',
-        'is_official',
-        'created_by_id'
     ];
 
     protected $casts = [
         'meta' => 'array',
-        'is_official' => 'boolean',
     ];
 
-    public function variants()
-    {
-        return $this->hasMany(RaceVariant::class);
-    }
-
-    public function attributeMods()
+    public function attributeMods(): HasMany
     {
         return $this->hasMany(RaceAttributeMod::class);
     }
 
-    public function choiceSets()
+    public function variants(): HasMany
+    {
+        return $this->hasMany(RaceVariant::class);
+    }
+
+    public function choiceSets(): HasMany
     {
         return $this->hasMany(RaceChoiceSet::class);
     }
 
-    public function choiceGroups()
+    public function choiceGroups(): HasMany
     {
         return $this->hasMany(RaceChoiceGroup::class);
     }

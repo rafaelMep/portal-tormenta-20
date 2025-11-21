@@ -5,27 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class RaceChoiceOption extends Model
+class RaceChoiceSetOption extends Model
 {
-    protected $table = 'race_choice_options';
+    protected $table = 'race_choice_set_options';
 
     protected $fillable = [
-        'group_id',
-        'set_id',    // nullable
-        'key',
-        'name',
-        'summary',
+        'set_id',
+        'value',
+        'label',
         'meta',
     ];
 
     protected $casts = [
         'meta' => 'array',
     ];
-
-    public function group(): BelongsTo
-    {
-        return $this->belongsTo(RaceChoiceGroup::class, 'group_id');
-    }
 
     public function set(): BelongsTo
     {
